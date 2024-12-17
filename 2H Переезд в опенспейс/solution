@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+
+int main()
+{
+    int n;
+    std::cin >> n;
+    std::vector<long long int> a(n), s(n+1);
+    s[0] = 0;
+    for (int i=0; i<n; ++i) {
+        std::cin >> a[i];
+        s[i+1] = s[i]+a[i];
+    }
+    long long int prev = 0, ans;
+    for (int i=1; i<n; ++i) {
+        prev += a[i]*i;
+    }
+    ans = prev;
+    for (int j=1; j<n; ++j) {
+        long long int cur = prev - (s[n]-s[j]) + s[j];
+        if (cur <= ans) {
+            ans = cur;
+        }
+        prev = cur;
+    }
+    std::cout << ans;
+}
